@@ -1,0 +1,20 @@
+{
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "name": "swe-8-1-first-server-jfelipe75",
+  "version": "1.0.0",
+  "description": "Deployment Link:",
+  "main": ".eslintrc.js",
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
