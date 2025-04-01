@@ -4,13 +4,31 @@ const express = require("express");
 // invoke express to create our app
 const app = express();
 
-// set up port
-const PORT = 8080;
+// The path module is useful for constructing relative filepaths
+const path = require("path");
+// the filepath is to the entire assets folder
+const filepath = path.join(__dirname, "..app/dist/");
+
+// generate middleware using the filepath
+const serveStatic = express.static(filepath);
+
+// Register the serveStatic middleware before the remaining controllers
+app.use(serveStatic);
+
+// Middleware function for logging route requests
+const logRoutes = (req, res, next) => {
+  const time = new Date().toLocaleString();
+  console.log(`${req.method}: ${req.originalUrl} - ${time}`);
+  next(); // Passes the request to the next middleware/controller
+};
+// register the logRoutes middleware globally to log all requests
+app.use(logRoutes);
 
 // controllers
 const serverJoke = (req, res) => {
   const joke =
     "Why did the scarecrow win an award? Because he was outstanding in his field! 🌾😆";
+  res.send(joke);
 };
 
 const serverPicture = (req, res) => {
@@ -29,15 +47,20 @@ const serverRollDie = (req, res) => {
     res.send([4]);
   } else if (typeof quantity !== "number") {
     res.send([2]);
+  } else {
+    res.send([5, 2, 3]);
   }
 
   res.send([quantity]);
 };
 
 // endpoints
-app.get("/api/joke");
-app.get("/api/picture");
-app.get("/api/rollDie");
+app.get("/api/joke", serverJoke);
+app.get("/api/picture", serverPicture);
+app.get("/api/rollDie", serverRollDie);
+
+// set up port
+const PORT = 8080;
 // listen for requests
 app.listen(PORT, () => {
   console.log(`Listening at http://localhost:${PORT}`);
