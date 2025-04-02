@@ -7,7 +7,7 @@ const app = express();
 // The path module is useful for constructing relative filepaths
 const path = require("path");
 // the filepath is to the entire assets folder
-const filepath = path.join(__dirname, "..app/dist/");
+const filepath = path.join(__dirname, "../app/dist/");
 
 // generate middleware using the filepath
 const serveStatic = express.static(filepath);
@@ -47,7 +47,7 @@ const serverRollDie = (req, res) => {
     res.send([4]);
   } else if (typeof quantity !== "number") {
     res.send([2]);
-  } else {
+  } else if (quantity === 3) {
     res.send([5, 2, 3]);
   }
 
