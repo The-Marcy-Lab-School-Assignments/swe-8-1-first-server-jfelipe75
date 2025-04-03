@@ -39,26 +39,21 @@ const serverPicture = (req, res) => {
   res.send(src);
 };
 
-// Function to simulate rolling a die (returns a random number between 1 and 6)
-const rollDie = () => Math.floor(Math.random() * 6) + 1;
-
-// Define the serverRollDie function to match the format of the other endpoints
 const serverRollDie = (req, res) => {
-  const { quantity } = req.query; // Get the 'quantity' query parameter
-  let numRolls = 1; // Default to rolling one die
+  const { quantity } = req.query;
+  let numRolls = 1;
 
-  // If 'quantity' is provided, validate it
   if (quantity) {
     const parsedQuantity = parseInt(quantity, 10);
 
-    // If it's a valid number and greater than 0, use it as the number of rolls
     if (!isNaN(parsedQuantity) && parsedQuantity > 0) {
       numRolls = parsedQuantity;
     } else {
-      // If the value is invalid, default to 1 roll
       numRolls = 1;
     }
   }
+  // Function to generate a random number
+  const rollDie = () => Math.floor(Math.random() * 6) + 1;
 
   // Generate an array of dice rolls based on the number of rolls
   const rolls = Array.from({ length: numRolls }, rollDie);
@@ -66,6 +61,7 @@ const serverRollDie = (req, res) => {
   // Send the response in the required structure
   res.send({ rolls });
 };
+
 // endpoints
 app.get("/api/joke", serverJoke);
 app.get("/api/picture", serverPicture);
