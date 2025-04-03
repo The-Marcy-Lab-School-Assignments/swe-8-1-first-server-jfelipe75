@@ -42,8 +42,8 @@ const serverPicture = (req, res) => {
 // Function to simulate rolling a die (returns a random number between 1 and 6)
 const rollDie = () => Math.floor(Math.random() * 6) + 1;
 
-// Define the endpoint
-app.get("/api/rollDie", (req, res) => {
+// Define the serverRollDie function to match the format of the other endpoints
+const serverRollDie = (req, res) => {
   const { quantity } = req.query; // Get the 'quantity' query parameter
   let numRolls = 1; // Default to rolling one die
 
@@ -64,9 +64,8 @@ app.get("/api/rollDie", (req, res) => {
   const rolls = Array.from({ length: numRolls }, rollDie);
 
   // Send the response in the required structure
-  res.json({ rolls });
-});
-
+  res.send({ rolls });
+};
 // endpoints
 app.get("/api/joke", serverJoke);
 app.get("/api/picture", serverPicture);
